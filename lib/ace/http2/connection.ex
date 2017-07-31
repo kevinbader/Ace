@@ -64,8 +64,8 @@ defmodule Ace.HTTP2.Connection do
     {:ok, "h2"} = :ssl.negotiated_protocol(socket)
     :ssl.send(socket, Frame.Settings.new() |> Frame.Settings.serialize())
     :ssl.setopts(socket, [active: :once])
-    decode_context = HPack.new_context(65_536)
-    encode_context = HPack.new_context(65_536)
+    decode_context = HPack.new_context(4096)
+    encode_context = HPack.new_context(4096)
     initial_state = %__MODULE__{
       socket: socket,
       decode_context: decode_context,
